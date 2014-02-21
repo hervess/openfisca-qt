@@ -34,13 +34,13 @@ openfisca_france.init_country()
 from openfisca_core.simulations import ScenarioSimulation
 
 
-def get_alloc(maxrev = 10000, conj = False, nbenf = 0, zone_apl = 1, loyer_mensuel = 500, nmen = 51):
+def get_alloc(maxrev = 20000, conj = False, nbenf = 0, zone_apl = 1, loyer_mensuel = 500, nmen = 21):
 
     # Creating a case_study household with one individual whose taxable income (salaire imposable, sali
     # varies from 0 to maxrev = 100000 in nmen = 3 steps
     simulation = ScenarioSimulation()
     simulation.set_config(year = 2013,
-                          nmen = 11,
+                          nmen = nmen,
                           maxrev = maxrev,
                           x_axis = 'sali')
 
@@ -67,7 +67,22 @@ def get_alloc(maxrev = 10000, conj = False, nbenf = 0, zone_apl = 1, loyer_mensu
     return df2
 
 
-
 if __name__ == '__main__':
-    df = get_alloc(loyer_mensuel = 1000, zone_apl = 1)
+    df = get_alloc(loyer_mensuel = 500, zone_apl = 1, conj = False)
+    print df.to_string()
+    df2 = get_alloc(loyer_mensuel = 500, zone_apl = 1, conj = True)
     print df2.to_string()
+
+    df3 = df2 - df
+    print df3
+    
+    print df3.to_string()
+    
+    df4 = get_alloc(loyer_mensuel = 500, zone_apl = 2, conj = False)
+    
+    df5 = df - df4
+    print df5
+
+    
+
+    
